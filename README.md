@@ -14,3 +14,5 @@ _If you want to read the origin of the debugging duck_: [Rubber duck debugging -
 
 1. Clone the repo
 2. Open the `index.html` file in your browser
+
+[Check the working website on GitHub Pages](https://emanuelefavero.github.io/debugging-duck-vanilla-js/)
