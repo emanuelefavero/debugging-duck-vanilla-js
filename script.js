@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+  // ----- DUCK PHRASES -----
   // Show different phrase each time the app is loaded
   const duckPhraseOutput = document.querySelector('#duck-phrase')
   const phrases = [
@@ -33,12 +34,13 @@ window.addEventListener('DOMContentLoaded', () => {
   duckPhraseOutput.innerHTML =
     phrases[Math.floor(Math.random() * phrases.length)]
 
+  // ----- EYES TRACKING TO MOUSE POSITION -----
   // Define Duck Images Elements
   const duckBody = document.getElementById('duck-eyelids-closed')
   const duckEyes = document.getElementById('duck-eyes')
   const duckEyelidsClosed = document.getElementById('duck-eyelids-closed')
 
-  // Track eyes to mouse position
+  // When mouse moves
   const onMouseMove = (e) => {
     // Get mouse position relative to window size and track eyes to it
     // set boundaries so eyes don't go out of range
@@ -47,9 +49,17 @@ window.addEventListener('DOMContentLoaded', () => {
     duckEyes.style.top =
       e.clientY < 1100 ? 56 + e.clientY / 100 + 'px' : 56 + 1100 / 100 + 'px'
   }
-  document.addEventListener('mousemove', onMouseMove)
 
-  // remove eyes tracking if window size is greater than 768 when window is resized
+  // Remove eyes tracking if window size is greater than 768 at page load
+  if (window.innerWidth > 768) {
+    duckEyes.style.left = '0px'
+    duckEyes.style.top = 56 + 'px'
+    document.removeEventListener('mousemove', onMouseMove)
+  } else {
+    // Add eyes tracking otherwise
+    document.addEventListener('mousemove', onMouseMove)
+  }
+  // Remove eyes tracking if window size is greater than 768 when window is resized
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
       duckEyes.style.left = '0px'
@@ -57,11 +67,13 @@ window.addEventListener('DOMContentLoaded', () => {
       document.removeEventListener('mousemove', onMouseMove)
       return
     } else {
+      // Add eyes tracking otherwise
       document.addEventListener('mousemove', onMouseMove)
       return
     }
   })
 
+  // ----- ANIMATIONS -----
   // Setup random intervals for little jump and eyes blinking animations
   setInterval(() => {
     let hideShowRandomTime = (Math.random() * 4 + 1).toFixed(2)
@@ -72,5 +84,4 @@ window.addEventListener('DOMContentLoaded', () => {
     duckEyelidsClosed.style.animation = `rotate 1.4s 1 ease, jump 0.3s 1 ease 1.4s,
     hideShow ${hideShowRandomTime}s infinite cubic-bezier(1, 0, 0, 1);`
   }, 200)
-  duckBody.addEventListener('click', () => {})
 })
