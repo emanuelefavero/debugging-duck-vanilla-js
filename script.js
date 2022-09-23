@@ -34,44 +34,10 @@ window.addEventListener('DOMContentLoaded', () => {
   duckPhraseOutput.innerHTML =
     phrases[Math.floor(Math.random() * phrases.length)]
 
-  // ----- EYES TRACKING TO MOUSE POSITION -----
   // Define Duck Images Elements
   const duckBody = document.getElementById('duck-eyelids-closed')
   const duckEyes = document.getElementById('duck-eyes')
   const duckEyelidsClosed = document.getElementById('duck-eyelids-closed')
-
-  // When mouse moves
-  const onMouseMove = (e) => {
-    // Get mouse position relative to window size and track eyes to it
-    // set boundaries so eyes don't go out of range
-    duckEyes.style.left =
-      e.clientX < 400 ? -3 + e.clientX / 50 + 'px' : 400 / 50 + 'px'
-    duckEyes.style.top =
-      e.clientY < 1100 ? 56 + e.clientY / 100 + 'px' : 56 + 1100 / 100 + 'px'
-  }
-
-  // Remove eyes tracking if window size is greater than 768 at page load
-  if (window.innerWidth > 768) {
-    duckEyes.style.left = '0px'
-    duckEyes.style.top = 56 + 'px'
-    document.removeEventListener('mousemove', onMouseMove)
-  } else {
-    // Add eyes tracking otherwise
-    document.addEventListener('mousemove', onMouseMove)
-  }
-  // Remove eyes tracking if window size is greater than 768 when window is resized
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      duckEyes.style.left = '0px'
-      duckEyes.style.top = 56 + 'px'
-      document.removeEventListener('mousemove', onMouseMove)
-      return
-    } else {
-      // Add eyes tracking otherwise
-      document.addEventListener('mousemove', onMouseMove)
-      return
-    }
-  })
 
   // ----- ANIMATIONS -----
   // Setup random intervals for little jump and eyes blinking animations
